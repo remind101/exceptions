@@ -1,0 +1,4 @@
+language: ruby
+env:
+  global:
+    - secure: "NNSdg0tE/Der65vZj6c8ArOky+m3hgAJUEFiaiNIpbTvmUcg+uP8s6TiQuxw9XNnX9U8ubo7rfNbEfHeZ3zvzR5k6H28dAneuBBDE2odGfabUnioJRj04J+pONCHPJoOJoUsT7h5ylqMif8v1T8pOOyTd+0TB2XsRSjUT2Jmw+Q="
