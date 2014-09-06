@@ -7,19 +7,29 @@ tracking in Ruby.
 
 Add this line to your application's Gemfile:
 
-    gem 'exceptions'
+```ruby
+gem 'exceptions'
+```
 
 And then execute:
 
-    $ bundle
+```ruby
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install exceptions
+```ruby
+$ gem install exceptions
+```
 
 ## Usage
 
-**TODO**
+**Track an exception**
+
+```ruby
+Exceptions.notify(StandardError.new("Boom"))
+```
 
 ## Contributing
 
