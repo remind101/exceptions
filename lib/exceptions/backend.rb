@@ -21,14 +21,12 @@ module Exceptions
     #
     # Returns nothing.
     def context(ctx)
-      raise NotImplementedError
     end
 
     # Public: Clear should clear the context.
     #
     # Returns nothing.
     def clear_context
-      raise NotImplementedError
     end
   end
 end
