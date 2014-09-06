@@ -8,6 +8,7 @@ module Exceptions
     # an external service.
     #
     # exception - An Exception object.
+    # options   - A Hash of options.
     #
     # Returns nil or a Result object.
     def notify(exception)

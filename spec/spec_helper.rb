@@ -12,7 +12,7 @@ end
 Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each {|f| require f}
 
 Exceptions.configure do |config|
-  config.backend = Exceptions::Backends::Null
+  config.backend = Exceptions::Backends::Multi.new Exceptions::Backends::Null.new
 end
 
 def backend

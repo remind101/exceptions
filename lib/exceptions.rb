@@ -8,10 +8,11 @@ module Exceptions
     # Public: Forwards the exception to the configured backend.
     #
     # exception - An Exception object.
+    # options   - A Hash of options to pass to the backend.
     #
     # Returns a Result object.
-    def notify(exception)
-      backend.notify exception
+    def notify(exception, options = {})
+      backend.notify exception, options
     end
 
     # Public: The configuration object.

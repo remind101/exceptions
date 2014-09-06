@@ -4,7 +4,7 @@ module Exceptions
     attr_accessor :backend
 
     def backend
-      @backend ||= Backends::Honeybadger
+      @backend ||= Backends::Honeybadger.new
     end
   end
 end
