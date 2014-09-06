@@ -10,6 +10,7 @@ describe Exceptions::Backends::Honeybadger, backend: :honeybadger do
       Exceptions.context(request_id: '1234')
       result = Exceptions.notify(boom)
       expect(result.id).to_not be_empty
+      expect(result.url).to_not be_empty
     end
   end
 

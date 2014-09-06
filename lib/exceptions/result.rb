@@ -8,6 +8,10 @@ module Exceptions
       @id = id
     end
 
+    def url
+      raise NotImplementedError
+    end
+
     def ok?
       true
     end

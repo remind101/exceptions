@@ -20,6 +20,12 @@ module Exceptions
       def clear_context
         ::Honeybadger.clear!
       end
+
+      class Result < ::Exceptions::Result
+        def url
+          "https://www.honeybadger.io/notice/#{id}"
+        end
+      end
     end
   end
 end
