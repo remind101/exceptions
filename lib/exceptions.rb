@@ -26,8 +26,8 @@ module Exceptions
     # Public: Clear the context.
     #
     # Returns nothing.
-    def clear
-      backend.clear
+    def clear_context
+      backend.clear_context
     end
 
     # Public: The configuration object.

@@ -27,7 +27,7 @@ module Exceptions
     # Public: Clear should clear the context.
     #
     # Returns nothing.
-    def clear
+    def clear_context
       raise NotImplementedError
     end
   end

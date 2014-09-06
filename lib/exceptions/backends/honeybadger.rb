@@ -17,7 +17,7 @@ module Exceptions
         ::Honeybadger.context ctx
       end
 
-      def clear
+      def clear_context
         ::Honeybadger.clear!
       end
     end
