@@ -1,4 +1,4 @@
-# Exceptions
+# Exceptions [![Build Status](https://travis-ci.org/remind101/exceptions.svg?branch=master)](https://travis-ci.org/remind101/exceptions)
 
 Exceptions is a Ruby gem that provides the right amount of abstraction for doing exception
 tracking in Ruby.
