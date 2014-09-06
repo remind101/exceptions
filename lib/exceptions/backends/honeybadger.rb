@@ -6,7 +6,11 @@ module Exceptions
     # exception to Honeybadger.
     class Honeybadger < Backend
       def notify(exception, options = {})
-        ::Honeybadger.notify_or_ignore(exception, options)
+        if id = ::Honeybadger.notify_or_ignore(exception, options)
+          Result.new id
+        else
+          BadResult.new
+        end
       end
     end
   end

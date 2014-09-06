@@ -1,5 +1,6 @@
 require 'exceptions/version'
 require 'exceptions/configuration'
+require 'exceptions/result'
 require 'exceptions/backend'
 require 'exceptions/backends'
 
