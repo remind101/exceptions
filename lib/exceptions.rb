@@ -4,6 +4,8 @@ require 'exceptions/result'
 require 'exceptions/backend'
 require 'exceptions/backends'
 
+require 'rack/exceptions'
+
 module Exceptions
   class << self
     # Public: Forwards the exception to the configured backend.

@@ -21,6 +21,14 @@ module Exceptions
         ::Honeybadger.clear!
       end
 
+      def rack_exception(exception, env)
+        notify(exception, rack_env: env) unless ::Honeybadger.
+          configuration.
+          ignore_user_agent.
+          flatten.
+          any? { |ua| ua === env['HTTP_USER_AGENT'] }
+      end
+
       class Result < ::Exceptions::Result
         def url
           "https://www.honeybadger.io/notice/#{id}"

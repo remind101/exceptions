@@ -11,6 +11,8 @@ RSpec.configure do |config|
       with_backend(BACKENDS[backend]) do
         example.run
       end
+    else
+      example.run
     end
   end
 end

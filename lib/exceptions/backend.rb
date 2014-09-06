@@ -10,7 +10,7 @@ module Exceptions
     # exception - An Exception object.
     # options   - A Hash of options.
     #
-    # Returns nil or a Result object.
+    # Returns an object satisfying the Result interface.
     def notify(exception)
       raise NotImplementedError
     end
@@ -27,6 +27,13 @@ module Exceptions
     #
     # Returns nothing.
     def clear_context
+    end
+
+    # Public: Called by the Rack middleware when an exception is raised.
+    #
+    # Returns and object satisfying the Result interface.
+    def rack_exception(exception, env)
+      notify(exception)
     end
   end
 end
