@@ -21,7 +21,8 @@ Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each {|f| require f}
 
 BACKENDS = {
   honeybadger: Exceptions::Backends::Honeybadger.new,
-  multi:       Exceptions::Backends::Multi.new(Exceptions::Backends::Null.new)
+  multi:       Exceptions::Backends::Multi.new(Exceptions::Backends::Null.new),
+  logger:      Exceptions::Backends::Logger.new
 }
 
 Exceptions.configure do |config|
