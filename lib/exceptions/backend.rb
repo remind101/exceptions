@@ -14,5 +14,21 @@ module Exceptions
     def notify(exception)
       raise NotImplementedError
     end
+
+    # Public: Context can be used to set global context.
+    #
+    # ctx - A Hash of contextual information.
+    #
+    # Returns nothing.
+    def context(ctx)
+      raise NotImplementedError
+    end
+
+    # Public: Clear should clear the context.
+    #
+    # Returns nothing.
+    def clear
+      raise NotImplementedError
+    end
   end
 end

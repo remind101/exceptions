@@ -16,6 +16,20 @@ module Exceptions
       backend.notify exception, options
     end
 
+    # Public: Set the context.
+    #
+    # Returns nothing.
+    def context(ctx)
+      backend.context ctx
+    end
+
+    # Public: Clear the context.
+    #
+    # Returns nothing.
+    def clear
+      backend.clear
+    end
+
     # Public: The configuration object.
     #
     # Returns a Configuration instance.

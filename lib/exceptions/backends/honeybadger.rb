@@ -12,6 +12,14 @@ module Exceptions
           BadResult.new
         end
       end
+
+      def context(ctx)
+        ::Honeybadger.context ctx
+      end
+
+      def clear
+        ::Honeybadger.clear!
+      end
     end
   end
 end
