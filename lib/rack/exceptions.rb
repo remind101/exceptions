@@ -1,10 +1,8 @@
 module Rack
   class Exceptions
-    attr_reader :backend
-
     def initialize(app, backend = nil)
       @app     = app
-      @backend = backend || ::Exceptions.configuration.backend
+      @backend = backend
     end
 
     def call(env)
@@ -18,6 +16,12 @@ module Rack
       response
     ensure
       backend.clear_context
+    end
+
+    private
+
+    def backend
+      @backend ||= ::Exceptions.configuration.backend
     end
   end
 end
