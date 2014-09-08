@@ -11,6 +11,7 @@ module Exceptions
 
       def notify(exception, options = {})
         logger.info exception
+        Result.new
       end
     end
   end

@@ -9,14 +9,14 @@ module Exceptions
   # This class is mostly a reference implementation but anything that conforms to the
   # above interface is acceptable to return.
   class Result
-    attr_reader :id
+    attr_reader :id, :url
 
     def initialize(id = nil)
       @id = id
     end
 
     def url
-      ""
+      @url ||= ""
     end
 
     def ok?

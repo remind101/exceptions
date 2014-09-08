@@ -10,8 +10,17 @@ module Exceptions
       end
 
       def notify(exception, options = {})
-        backends.each do |backend|
+        results = backends.map do |backend|
           backend.notify exception, options
+        end
+
+        MultiResult.new results.map(&:id), results.map(&:url)
+      end
+
+      class MultiResult < ::Exceptions::Result
+        def initialize(ids, urls)
+          @id  = ids.join(',')
+          @url = urls.join(',')
         end
       end
     end

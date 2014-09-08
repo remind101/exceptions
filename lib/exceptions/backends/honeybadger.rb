@@ -5,8 +5,14 @@ module Exceptions
     # Public: The Honeybadger backend is a Backend implementation that sends the 
     # exception to Honeybadger.
     class Honeybadger < Backend
+      attr_reader :honeybadger
+
+      def initialize(honeybadger = ::Honeybadger)
+        @honeybadger = honeybadger
+      end
+
       def notify(exception, options = {})
-        if id = ::Honeybadger.notify_or_ignore(exception, options)
+        if id = honeybadger.notify_or_ignore(exception, options)
           Result.new id
         else
           BadResult.new
@@ -14,15 +20,15 @@ module Exceptions
       end
 
       def context(ctx)
-        ::Honeybadger.context ctx
+        honeybadger.context ctx
       end
 
       def clear_context
-        ::Honeybadger.clear!
+        honeybadger.clear!
       end
 
       def rack_exception(exception, env)
-        notify(exception, rack_env: env) unless ::Honeybadger.
+        notify(exception, rack_env: env) unless honeybadger.
           configuration.
           ignore_user_agent.
           flatten.
