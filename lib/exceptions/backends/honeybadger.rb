@@ -12,8 +12,7 @@ module Exceptions
       end
 
       def notify(exception, options = {})
-        backtrace = caller
-        defaults = { backtrace: backtrace.last(backtrace.length - 1) }
+        defaults = { backtrace: caller.drop(1) }
         if id = honeybadger.notify_or_ignore(exception, defaults.merge(options))
           Result.new id
         else
