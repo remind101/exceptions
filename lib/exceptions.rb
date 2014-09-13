@@ -2,11 +2,18 @@ require 'exceptions/version'
 require 'exceptions/configuration'
 require 'exceptions/result'
 require 'exceptions/backend'
-require 'exceptions/backends'
 
 require 'rack/exceptions'
 
 module Exceptions
+  module Backends
+    autoload :Null,        'exceptions/backends/null'
+    autoload :Raiser,      'exceptions/backends/raiser'
+    autoload :Multi,       'exceptions/backends/multi'
+    autoload :Logger,      'exceptions/backends/logger'
+    autoload :Honeybadger, 'exceptions/backends/honeybadger'
+  end
+
   class << self
     # Public: Forwards the exception to the configured backend.
     #
