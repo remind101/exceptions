@@ -11,6 +11,7 @@ module Exceptions
     autoload :Raiser,      'exceptions/backends/raiser'
     autoload :Multi,       'exceptions/backends/multi'
     autoload :Logger,      'exceptions/backends/logger'
+    autoload :LogResult,   'exceptions/backends/log_result'
     autoload :Honeybadger, 'exceptions/backends/honeybadger'
   end
 
