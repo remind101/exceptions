@@ -33,6 +33,7 @@ happens when `Exceptions.notify` is called. The following backends are provided:
 * **Logger**: This backend will log the exception to stdout.
 * **Honeybadger**: This backend will send the exception to honeybadger using the [honeybadger-ruby](https://github.com/honeybadger-io/honeybadger-ruby) gem.
 * **Multi**: A meta backend to compose other backends into a single backend.
+* **LogResult**: Another meta backend that wraps an existing backend to log the result in [logfmt](https://brandur.org/logfmt).
 
 ## Usage
 
