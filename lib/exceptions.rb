@@ -13,6 +13,7 @@ module Exceptions
     autoload :Logger,      'exceptions/backends/logger'
     autoload :LogResult,   'exceptions/backends/log_result'
     autoload :Honeybadger, 'exceptions/backends/honeybadger'
+    autoload :Context,     'exceptions/backends/context'
   end
 
   class << self
