@@ -9,7 +9,7 @@ module Rack
       begin
         response = @app.call(env)
       rescue Exception => e
-        backend.rack_exception(e, env)
+        backend.notify(e, rack_env: env)
         raise
       end
 

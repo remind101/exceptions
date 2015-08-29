@@ -40,13 +40,6 @@ module Exceptions
       backend.clear_context
     end
 
-    # Public: Notify a rack exception.
-    #
-    # Returns a Result object.
-    def rack_exception(exception, env)
-      backend.rack_exception exception, env
-    end
-
     # Public: The configuration object.
     #
     # Returns a Configuration instance.
