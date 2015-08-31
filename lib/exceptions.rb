@@ -13,6 +13,7 @@ module Exceptions
     autoload :Logger,      'exceptions/backends/logger'
     autoload :LogResult,   'exceptions/backends/log_result'
     autoload :Honeybadger, 'exceptions/backends/honeybadger'
+    autoload :Context,     'exceptions/backends/context'
   end
 
   class << self
@@ -38,13 +39,6 @@ module Exceptions
     # Returns nothing.
     def clear_context
       backend.clear_context
-    end
-
-    # Public: Notify a rack exception.
-    #
-    # Returns a Result object.
-    def rack_exception(exception, env)
-      backend.rack_exception exception, env
     end
 
     # Public: The configuration object.

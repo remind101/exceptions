@@ -28,12 +28,5 @@ module Exceptions
     # Returns nothing.
     def clear_context
     end
-
-    # Public: Called by the Rack middleware when an exception is raised.
-    #
-    # Returns and object satisfying the Result interface.
-    def rack_exception(exception, env)
-      notify(exception)
-    end
   end
 end

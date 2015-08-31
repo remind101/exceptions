@@ -18,12 +18,6 @@ module Exceptions
         end
       end
 
-      def rack_exception(exception, env)
-        backend.rack_exception(exception, env).tap do |result|
-          log exception, result
-        end
-      end
-
       def context(*args)
         backend.context(*args)
       end
