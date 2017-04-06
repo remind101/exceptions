@@ -24,9 +24,10 @@ module Exceptions
       end
 
       def context(ctx)
+        ctx = ctx.dup
+
         # rollbar does special tracking of the `person` key, but `user` is a more
         # common name for this.
-        ctx = Marshal.load(Marshal.dump(ctx)) # deep clone
         ctx[:person] = ctx.delete(:user) if ctx.key?(:user)
         rollbar.scope!(ctx)
       end
