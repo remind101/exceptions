@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '~> 3.1.0'
   spec.add_development_dependency 'honeybadger', '~> 1.9.5'
+  spec.add_development_dependency 'rollbar', '~> 2.14'
 end

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Exceptions::Backends::Honeybadger do
-  let(:honeybadger) { double(::Honeybadger) }
+describe Exceptions::Backends::Rollbar do
+  let(:rollbar) { double(::Rollbar) }
 
   let(:backend) do
-    described_class.new honeybadger
+    described_class.new rollbar
   end
 
   describe '#notify' do
@@ -12,17 +12,17 @@ describe Exceptions::Backends::Honeybadger do
 
     context 'when successful' do
       before do
-        expect(honeybadger).to receive(:notify).and_return('1234')
+        expect(rollbar).to receive(:log).and_return(uuid: 'error-uuid')
       end
 
       it 'returns the result' do
-        expect(result.id).to eq '1234'
+        expect(result.id).to eq 'error-uuid'
       end
     end
 
     context 'when errored' do
       before do
-        expect(honeybadger).to receive(:notify).and_return(nil)
+        expect(rollbar).to receive(:log).and_return('error')
       end
 
       it 'returns the result' do
@@ -31,3 +31,4 @@ describe Exceptions::Backends::Honeybadger do
     end
   end
 end
+
