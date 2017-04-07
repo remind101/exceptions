@@ -25,7 +25,8 @@ BACKENDS = {
   honeybadger: Exceptions::Backends::Honeybadger.new,
   rollbar:     Exceptions::Backends::Rollbar.new,
   multi:       Exceptions::Backends::Multi.new(Exceptions::Backends::Null.new),
-  logger:      Exceptions::Backends::Logger.new
+  logger:      Exceptions::Backends::Logger.new,
+  test:        Exceptions::Backends::Test.new
 }
 
 Exceptions.configure do |config|

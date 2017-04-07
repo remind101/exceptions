@@ -7,14 +7,15 @@ require 'rack/exceptions'
 
 module Exceptions
   module Backends
+    autoload :Context,     'exceptions/backends/context'
+    autoload :Honeybadger, 'exceptions/backends/honeybadger'
+    autoload :LogResult,   'exceptions/backends/log_result'
+    autoload :Logger,      'exceptions/backends/logger'
+    autoload :Multi,       'exceptions/backends/multi'
     autoload :Null,        'exceptions/backends/null'
     autoload :Raiser,      'exceptions/backends/raiser'
-    autoload :Multi,       'exceptions/backends/multi'
-    autoload :Logger,      'exceptions/backends/logger'
-    autoload :LogResult,   'exceptions/backends/log_result'
-    autoload :Honeybadger, 'exceptions/backends/honeybadger'
     autoload :Rollbar,     'exceptions/backends/rollbar'
-    autoload :Context,     'exceptions/backends/context'
+    autoload :Test,        'exceptions/backends/test'
   end
 
   class << self
