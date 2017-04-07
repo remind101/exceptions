@@ -23,6 +23,7 @@ Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each {|f| require f}
 
 BACKENDS = {
   honeybadger: Exceptions::Backends::Honeybadger.new,
+  rollbar:     Exceptions::Backends::Rollbar.new,
   multi:       Exceptions::Backends::Multi.new(Exceptions::Backends::Null.new),
   logger:      Exceptions::Backends::Logger.new
 }
