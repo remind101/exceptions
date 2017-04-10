@@ -12,8 +12,9 @@ module Exceptions
         @logger  = logger
       end
 
-      def notify(exception, options = {})
-        backend.notify(exception, options).tap do |result|
+      def notify(*args)
+        backend.notify(*args).tap do |result|
+          exception = args.first
           log exception, result
         end
       end
