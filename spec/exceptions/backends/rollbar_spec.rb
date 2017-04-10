@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Exceptions::Backends::Rollbar do
   let(:rollbar) { double(::Rollbar) }
 
+  before { allow(rollbar).to receive(:scoped).and_yield }
+
   let(:backend) do
     described_class.new rollbar
   end
