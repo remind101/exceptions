@@ -39,4 +39,3 @@ describe Rack::Exceptions, backend: :test do
     expect(backend.reported_exceptions).to include(an_instance_of(CustomError))
   end
 end
-

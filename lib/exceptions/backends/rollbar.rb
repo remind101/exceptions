@@ -42,8 +42,10 @@ module Exceptions
 
       class Response < Struct.new(:id)
         def self.wrap(rollbar_result)
-          # XXX: why would rollbar_result be a string?????
-          return new(nil) if String === rollbar_result
+          # the rollbar client returns a string when the error wasn't logged,
+          # which can happen when we've configured rollbar to ignore that
+          # exception.
+          return BadResult.new if String === rollbar_result
           new(rollbar_result[:uuid])
         end
 
@@ -55,7 +57,7 @@ module Exceptions
       private
 
       def rollbar_scope(env)
-        if env.present?
+        if env
           {request: RollbarExtractor.extract_request_data_from_rack(env)}
         else
           {}
