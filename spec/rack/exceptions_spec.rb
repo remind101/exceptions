@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rack::Exceptions, foo: true do
+describe Rack::Exceptions do
   let(:response) { [200, {}, []] }
   let(:app) { double('app', call: response) }
   let(:middleware) { described_class.new app }

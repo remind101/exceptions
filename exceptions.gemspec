@@ -23,4 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.1.0'
   spec.add_development_dependency 'honeybadger', '~> 1.9.5'
   spec.add_development_dependency 'rollbar', '~> 2.14'
+  spec.add_development_dependency 'sinatra', '>= 1.4'
+  spec.add_development_dependency 'rails', '>= 4.2'
+  spec.add_development_dependency 'rack-test', '~> 0.6'
 end

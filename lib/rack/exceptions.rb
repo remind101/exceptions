@@ -13,6 +13,11 @@ module Rack
         raise
       end
 
+      framework_exception = framework_exception(env)
+      if framework_exception
+        backend.notify(framework_exception, rack_env: env)
+      end
+
       response
     ensure
       backend.clear_context
@@ -22,6 +27,10 @@ module Rack
 
     def backend
       @backend ||= ::Exceptions.configuration.backend
+    end
+
+    def framework_exception(env)
+      env['action_dispatch.exception'] || env['rack.exception'] || env['sinatra.error']
     end
   end
 end
