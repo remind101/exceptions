@@ -8,7 +8,7 @@ module Exceptions
         @reported_exceptions = []
       end
 
-      def notify(exception, options = {})
+      def notify(exception = nil, *args)
         @reported_exceptions << exception
         Result.new(@reported_exceptions.count - 1)
       end

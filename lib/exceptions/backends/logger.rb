@@ -9,7 +9,7 @@ module Exceptions
         @logger = logger
       end
 
-      def notify(exception, options = {})
+      def notify(exception = nil, *args, **kwargs)
         logger.info exception
         Result.new
       end

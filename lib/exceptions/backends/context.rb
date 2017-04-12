@@ -10,9 +10,9 @@ module Exceptions
         @extra = context
       end
 
-      def notify(exception, *args)
+      def notify(*args)
         backend.context extra
-        backend.notify(exception, *args)
+        backend.notify(*args)
       end
 
       def context(*args)
