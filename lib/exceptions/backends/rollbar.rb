@@ -19,7 +19,7 @@ module Exceptions
       end
 
       def notify(exception = nil, level: 'error', error_class: nil,
-                 rack_env: {}, error_message: nil, parameters: {}, context: {})
+                 rack_env: nil, error_message: nil, parameters: {}, context: {})
         err = exception || error_class
         extra = [DEFAULT_NOTIFY_ARGS, parameters, context].reduce(&:merge)
         rollbar.scoped(rollbar_scope(rack_env)) do
@@ -45,7 +45,7 @@ module Exceptions
           # the rollbar client returns a string when the error wasn't logged,
           # which can happen when we've configured rollbar to ignore that
           # exception.
-          return BadResult.new if String === rollbar_result
+          return BadResult.new if !rollbar_result.is_a?(Hash)
           new(rollbar_result[:uuid])
         end
 

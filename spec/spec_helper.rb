@@ -1,3 +1,6 @@
+require 'dotenv'
+Dotenv.load('.env')
+
 require 'bundler/setup'
 Bundler.require :default, :test
 
@@ -46,5 +49,5 @@ def backend
 end
 
 def boom
-  StandardError.new("Boom")
+  @boom ||= StandardError.new("Boom")
 end
