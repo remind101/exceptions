@@ -1,3 +1,5 @@
+require 'exceptions/util'
+
 module Exceptions
   module Backends
     # Public: Multi is an implementation of the Backend interface for wrapping multiple
@@ -9,11 +11,8 @@ module Exceptions
         @backends = backends
       end
 
-      def notify(exception, options = {})
-        results = backends.map do |backend|
-          backend.notify exception, options
-        end
-
+      def notify(*args)
+        results = backends.map { |be| be.notify(*Util.deep_dup(args)) }
         MultiResult.new results.map(&:id), results.map(&:url)
       end
 

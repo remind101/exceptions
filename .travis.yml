@@ -1,4 +1,6 @@
 language: ruby
 env:
   global:
-    - secure: "NNSdg0tE/Der65vZj6c8ArOky+m3hgAJUEFiaiNIpbTvmUcg+uP8s6TiQuxw9XNnX9U8ubo7rfNbEfHeZ3zvzR5k6H28dAneuBBDE2odGfabUnioJRj04J+pONCHPJoOJoUsT7h5ylqMif8v1T8pOOyTd+0TB2XsRSjUT2Jmw+Q="
+  - secure: SoZ439W406DdbkZlTTm5eMEtXtODeDipe6auJmTRqCvBMf5+s6dtt4sM9w5JrmF8h9IAzsWUxFioXrORFwHZAjEZYAD/793I1fcD4aVh/LMSACfK4iKTZQfMVfOw++IwKxmqIquie3Nc6VS2PUcaJNAyO3cKUNeM4+4qHTpVJ4U=
+  - secure: F12evYN42Q40ZRK0gqqn6DIEVJVntlWGWzKRa8JlAlJ7AWbNA0rO4SR5gAGcQRLks+uerEHkCHiuD991Eip5TuwnCDblQZhgrzUfZv3ruxxznezhmKasIWxi8nP+r9LBiAU6G7PS4VH+O9ej6ywboNXNOGCj6qtdUvStJnzTpHw=
+script: bundle exec rspec

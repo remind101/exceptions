@@ -1,4 +1,5 @@
 require 'rollbar'
+require 'rollbar/request_data_extractor'
 
 module Exceptions
   module Backends
@@ -17,10 +18,13 @@ module Exceptions
         @rollbar = rollbar
       end
 
-      def notify(exception = nil, level: 'error', error_class: nil, error_message: nil, parameters: {}, context: {})
+      def notify(exception = nil, level: 'error', error_class: nil,
+                 rack_env: nil, error_message: nil, parameters: {}, context: {})
         err = exception || error_class
         extra = [DEFAULT_NOTIFY_ARGS, parameters, context].reduce(&:merge)
-        Response.wrap(rollbar.log(level, err, error_message, extra))
+        rollbar.scoped(rollbar_scope(rack_env)) do
+          Response.wrap(rollbar.log(level, err, error_message, extra))
+        end
       end
 
       def context(ctx)
@@ -38,7 +42,10 @@ module Exceptions
 
       class Response < Struct.new(:id)
         def self.wrap(rollbar_result)
-          return new(nil) if String === rollbar_result
+          # the rollbar client returns a string when the error wasn't logged,
+          # which can happen when we've configured rollbar to ignore that
+          # exception.
+          return BadResult.new if !rollbar_result.is_a?(Hash)
           new(rollbar_result[:uuid])
         end
 
@@ -46,6 +53,18 @@ module Exceptions
           "https://rollbar.com/instance/uuid?uuid=#{id}"
         end
       end
+
+      private
+
+      def rollbar_scope(env)
+        if env
+          {request: RollbarExtractor.extract_request_data_from_rack(env)}
+        else
+          {}
+        end
+      end
+
+      RollbarExtractor = Object.new.extend(::Rollbar::RequestDataExtractor)
     end
   end
 end
