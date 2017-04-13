@@ -25,8 +25,8 @@ module Exceptions
     # options   - A Hash of options to pass to the backend.
     #
     # Returns a Result object.
-    def notify(exception, options = {})
-      backend.notify exception, options
+    def notify(*args)
+      backend.notify *args
     end
 
     # Public: Set the context.
