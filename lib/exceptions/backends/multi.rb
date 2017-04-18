@@ -9,8 +9,8 @@ module Exceptions
         @backends = backends
       end
 
-      def notify(*args)
-        results = backends.map { |be| be.notify(*args.dup) }
+      def notify(*args, **kwargs)
+        results = backends.map { |be| be.notify(*args.dup, **kwargs.dup) }
         MultiResult.new results.map(&:id), results.map(&:url)
       end
 
