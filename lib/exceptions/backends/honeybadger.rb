@@ -13,7 +13,7 @@ module Exceptions
 
       def notify(exception_or_opts, opts = {})
         if id = honeybadger.notify(exception_or_opts, opts)
-          Result.new(id)
+          wrap_rollbar_result(id)
         else
           BadResult.new
         end
@@ -27,10 +27,8 @@ module Exceptions
         honeybadger.context.clear!
       end
 
-      class Result < ::Exceptions::Result
-        def url
-          "https://www.honeybadger.io/notice/#{id}"
-        end
+      def wrap_rollbar_result(id)
+        Result.new(id, "https://www.honeybadger.io/notice/#{id}")
       end
     end
   end
