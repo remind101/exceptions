@@ -11,12 +11,9 @@ module Exceptions
   class Result
     attr_reader :id, :url
 
-    def initialize(id = nil)
+    def initialize(id = nil, url = nil)
       @id = id
-    end
-
-    def url
-      @url ||= ""
+      @url = url
     end
 
     def ok?

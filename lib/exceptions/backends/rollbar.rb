@@ -23,7 +23,7 @@ module Exceptions
         err = exception || error_class
         extra = [DEFAULT_NOTIFY_ARGS, parameters, context].reduce(&:merge)
         rollbar.scoped(rollbar_scope(rack_env)) do
-          Response.wrap(rollbar.log(level, err, error_message, extra))
+          wrap_rollbar_result(rollbar.log(level, err, error_message, extra))
         end
       end
 
@@ -40,21 +40,13 @@ module Exceptions
         rollbar.reset_notifier!
       end
 
-      class Response < Struct.new(:id)
-        def self.wrap(rollbar_result)
-          # the rollbar client returns a string when the error wasn't logged,
-          # which can happen when we've configured rollbar to ignore that
-          # exception.
-          return BadResult.new if !rollbar_result.is_a?(Hash)
-          new(rollbar_result[:uuid])
-        end
-
-        def url
-          "https://rollbar.com/instance/uuid?uuid=#{id}"
-        end
-      end
-
       private
+
+      def wrap_rollbar_result(rollbar_result)
+        return BadResult.new if !rollbar_result.is_a?(Hash)
+        id = rollbar_result[:uuid]
+        Result.new(id, "https://rollbar.com/instance/uuid?uuid=#{id}")
+      end
 
       def rollbar_scope(env)
         if env
