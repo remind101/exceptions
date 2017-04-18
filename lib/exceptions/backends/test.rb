@@ -15,4 +15,3 @@ module Exceptions
     end
   end
 end
-
