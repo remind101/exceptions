@@ -31,6 +31,29 @@ describe Exceptions::Backends::Rollbar do
         expect(result.id).to eq nil
       end
     end
+
+    it "reports exceptions to the rollbar reporter untouched" do
+      expect(rollbar).to receive(:log)
+        .with("error", boom, nil,
+              Exceptions::Backends::Rollbar::DEFAULT_NOTIFY_ARGS)
+      subject
+    end
+
+    it "converts strings into fake exceptions for the reporter" do
+      expect(rollbar).to receive(:log) do |_, exception, *|
+        expect(exception.class.name).to eq("ErrorName")
+        expect(exception.message).to eq("The message")
+      end
+      backend.notify(error_class: "ErrorName", error_message: "The message")
+    end
+
+    it "doesn't choke if reporting with objects of the wrong type" do
+      expect(rollbar).to receive(:log) do |_, exception, *|
+        expect(exception.class.name).to match(/#<Object:\w+>/)
+        expect(exception.message).to match(/#<Object:\w+>/)
+      end
+      backend.notify(Object.new, error_message: Object.new)
+    end
   end
 
   describe "integration with Rack::Exceptions" do
