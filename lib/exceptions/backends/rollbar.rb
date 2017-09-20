@@ -19,10 +19,10 @@ module Exceptions
       end
 
       def notify(exception = nil, level: 'error', error_class: nil,
-                 rack_env: nil, error_message: nil, parameters: {}, context: {})
+                 error_message: nil, parameters: {}, context: {})
         err = maybe_turn_into_exception(exception || error_class, error_message)
         extra = [DEFAULT_NOTIFY_ARGS, parameters, context].reduce(&:merge)
-        rollbar.scoped(rollbar_scope(rack_env)) do
+        rollbar.scoped(rack_env) do
           wrap_rollbar_result(rollbar.log(level, err, error_message, extra))
         end
       end
@@ -66,8 +66,8 @@ module Exceptions
         Result.new(id, "https://rollbar.com/instance/uuid?uuid=#{id}")
       end
 
-      def rollbar_scope(env)
-        if env
+      def rack_env
+        if env = ::Rack::Exceptions.rack_env
           {request: RollbarExtractor.extract_request_data_from_rack(env)}
         else
           {}
