@@ -8,7 +8,7 @@ module Exceptions
     class Rollbar
       DEFAULT_NOTIFY_ARGS = {
         # without this, rollbar won't ignore the error classes defined in
-        # config/initializers/exceptions.rb
+        # `config.exception_level_filters`
         use_exception_level_filters: true
       }
 
