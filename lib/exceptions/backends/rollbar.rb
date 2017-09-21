@@ -8,7 +8,7 @@ module Exceptions
     class Rollbar
       DEFAULT_NOTIFY_ARGS = {
         # without this, rollbar won't ignore the error classes defined in
-        # config/initializers/exceptions.rb
+        # `config.exception_level_filters`
         use_exception_level_filters: true
       }
 
@@ -19,10 +19,10 @@ module Exceptions
       end
 
       def notify(exception = nil, level: 'error', error_class: nil,
-                 rack_env: nil, error_message: nil, parameters: {}, context: {})
-        err = exception || error_class
+                 error_message: nil, parameters: {}, context: {})
+        err = maybe_turn_into_exception(exception || error_class, error_message)
         extra = [DEFAULT_NOTIFY_ARGS, parameters, context].reduce(&:merge)
-        rollbar.scoped(rollbar_scope(rack_env)) do
+        rollbar.scoped(rack_env) do
           wrap_rollbar_result(rollbar.log(level, err, error_message, extra))
         end
       end
@@ -42,14 +42,32 @@ module Exceptions
 
       private
 
+      # if reporting via the `error_class` and `error_message` args, we need to
+      # trick the rollbar reporter into thinking it's an actual exception. by
+      # doing that, rollbar will report the error class and message correctly,
+      # and show a stack trace, which it doesn't do when passing it a string.
+      def maybe_turn_into_exception(error_class_or_exception_or_string,
+                                    error_message)
+        if error_class_or_exception_or_string.is_a?(Exception)
+          error_class_or_exception_or_string
+        else
+          Class.new(StandardError) do
+            define_singleton_method(:name) do
+              error_class_or_exception_or_string.to_s
+            end
+            define_method(:message) { error_message.to_s }
+          end.new
+        end
+      end
+
       def wrap_rollbar_result(rollbar_result)
         return BadResult.new if !rollbar_result.is_a?(Hash)
         id = rollbar_result[:uuid]
         Result.new(id, "https://rollbar.com/instance/uuid?uuid=#{id}")
       end
 
-      def rollbar_scope(env)
-        if env
+      def rack_env
+        if env = ::Rack::Exceptions.rack_env
           {request: RollbarExtractor.extract_request_data_from_rack(env)}
         else
           {}
