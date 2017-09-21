@@ -1,6 +1,6 @@
 module Rack
   class Exceptions
-    # XXX: applications are typically configured with a single global instance
+    # applications are typically configured with a single global instance
     # of the exceptions reporter. use a thread local to store the current rack
     # so different threads don't see the same request info
     def self.rack_env
