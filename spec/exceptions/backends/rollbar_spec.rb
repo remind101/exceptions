@@ -97,5 +97,20 @@ describe Exceptions::Backends::Rollbar do
       wrapped.call(env)
       expect(rollbar).to have_received(:scoped).with(request: request_data)
     end
+
+    it "passes along the error_class and error_message params" do
+      allow(app).to receive(:call) do
+        backend.notify(error_class: "MyError", error_message: "The message")
+        response
+      end
+      expect(rollbar).to receive(:log) do |level, error, description, extra|
+        expect(level).to eq("error")
+        expect(error.class.name).to eq("MyError")
+        expect(description).to eq("The message")
+        expect(extra).to eq(use_exception_level_filters: true)
+      end
+      wrapped.call(env)
+      expect(rollbar).to have_received(:scoped).with(request: request_data)
+    end
   end
 end
