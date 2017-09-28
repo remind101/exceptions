@@ -51,12 +51,9 @@ module Exceptions
         if error_class_or_exception_or_string.is_a?(Exception)
           error_class_or_exception_or_string
         else
-          Class.new(StandardError) do
-            define_singleton_method(:name) do
-              error_class_or_exception_or_string.to_s
-            end
-            define_method(:message) { error_message.to_s }
-          end.new
+          PlaceholderError.new(
+            class_name: error_class_or_exception_or_string.to_s,
+            error_message: error_message.to_s)
         end
       end
 
@@ -75,6 +72,21 @@ module Exceptions
       end
 
       RollbarExtractor = Object.new.extend(::Rollbar::RequestDataExtractor)
+
+      class PlaceholderError < StandardError
+        def initialize(class_name:, error_message:)
+          @class_name = class_name
+          @error_message = error_message
+        end
+
+        def class
+          OpenStruct.new(name: @class_name)
+        end
+
+        def message
+          @error_message
+        end
+      end
     end
   end
 end
